@@ -29,6 +29,7 @@ Ce site a été conçu pour présenter mon profil, mon parcours académique, mes
 
 ### Lancer le projet
 
+https://simclement.github.io/PortfolioSimonCLEMENT/
 
 ---
 
@@ -57,6 +58,7 @@ This website was built to showcase my profile, academic background, technical sk
 
 ### Run the project
 
+https://simclement.github.io/PortfolioSimonCLEMENT/
 
 ### Contact
 
