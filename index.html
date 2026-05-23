@@ -1,352 +1,350 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simon Clément — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --navy:#080f1e;--navy-mid:#0d1a30;--navy-light:#132240;
-  --green:#244820;--green-mid:#345e2e;--green-l:#3d7535;--green-g:#4a9240;
-  --txt:#e8edf5;--txt2:#7d96b8;--muted:#3d5570;
-  --red:#b83228;--border:rgba(42,82,152,.2);--bg:#rgba(74,146,64,.28);
-}
-html{scroll-behavior:smooth}
-body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--txt);overflow-x:hidden;cursor:none}
-#cur{width:7px;height:7px;background:var(--green-g);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999}
-#ring{width:30px;height:30px;border:1px solid rgba(74,146,64,.35);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:width .18s,height .18s,border-color .18s}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 4rem;background:linear-gradient(to bottom,rgba(8,15,30,.96),transparent);backdrop-filter:blur(2px)}
-.logo{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.22em;color:var(--txt);text-transform:uppercase}
-.logo span{color:var(--green-g)}
-nav ul{display:flex;gap:2.5rem;list-style:none}
-nav a{font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--txt2);text-decoration:none;transition:color .2s}
-nav a:hover{color:var(--green-g)}
-.hero{height:100vh;min-height:680px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 4rem 6rem;background:var(--navy);overflow:hidden;position:relative}
-.hbg{position:absolute;inset:0;background:radial-gradient(ellipse at 72% 50%,rgba(22,45,82,.55) 0%,transparent 58%),radial-gradient(ellipse at 18% 85%,rgba(36,72,32,.18) 0%,transparent 48%)}
-.hgrid{position:absolute;inset:0;opacity:.035;background-image:linear-gradient(rgba(74,146,64,.9) 1px,transparent 1px),linear-gradient(90deg,rgba(74,146,64,.9) 1px,transparent 1px);background-size:56px 56px}
-.hcar{position:absolute;right:-1%;bottom:7%;width:62%;max-width:860px;opacity:0;transform:translateX(90px);animation:carIn 1.3s cubic-bezier(.16,1,.3,1) .35s forwards}
-@keyframes carIn{to{opacity:.9;transform:translateX(0)}}
-.hrule{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red) 25%,var(--red) 75%,transparent);opacity:.5}
-.heyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--green-g);opacity:0;animation:fadeUp .8s ease .2s forwards;margin-bottom:.9rem;position:relative;z-index:2}
-.hname{font-family:'Barlow Condensed',sans-serif;font-size:clamp(4.5rem,10vw,9rem);font-weight:900;line-height:.88;text-transform:uppercase;opacity:0;animation:fadeUp .8s ease .4s forwards;position:relative;z-index:2}
-.hname .f{display:block;color:var(--txt)}
-.hname .l{display:block;color:transparent;-webkit-text-stroke:1px rgba(232,237,245,.3)}
-.hsub{font-size:.88rem;font-weight:300;letter-spacing:.07em;color:var(--txt2);line-height:1.7;opacity:0;animation:fadeUp .8s ease .6s forwards;margin-top:1.4rem;max-width:380px;position:relative;z-index:2}
-.hcta{display:flex;align-items:center;gap:1.5rem;margin-top:2.2rem;opacity:0;animation:fadeUp .8s ease .8s forwards;position:relative;z-index:2}
-.btn-g{display:inline-flex;align-items:center;gap:.55rem;padding:.7rem 1.8rem;background:var(--green);color:var(--txt);font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid var(--green-mid);cursor:none;transition:background .25s,transform .2s}
-.btn-g:hover{background:var(--green-mid);transform:translateY(-2px)}
-.btn-o{display:inline-flex;align-items:center;gap:.55rem;padding:.7rem 1.8rem;background:transparent;color:var(--txt2);font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);cursor:none;transition:border-color .25s,color .25s}
-.btn-o:hover{border-color:rgba(125,150,184,.5);color:var(--txt)}
-.scrl{position:absolute;bottom:2.5rem;left:4rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeUp .8s ease 1.1s forwards;z-index:2}
-.sline{width:36px;height:1px;background:var(--green-g);position:relative;overflow:hidden}
-.sline::after{content:'';position:absolute;inset-block:0;left:-100%;width:100%;background:white;animation:lp 2.2s ease 1.6s infinite}
-@keyframes lp{to{left:200%}}
-.slbl{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.wrap{max-width:1200px;margin:0 auto;padding:7rem 4rem}
-.lbl{font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--green-g);margin-bottom:.7rem;display:flex;align-items:center;gap:1rem}
-.lbl::before{content:'';width:28px;height:1px;background:var(--green-g)}
-.stitle{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.6rem,5vw,4.2rem);font-weight:900;line-height:.92;text-transform:uppercase;margin-bottom:3rem}
-/* ABOUT */
-.ag{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.atext p{font-size:.98rem;font-weight:300;line-height:1.9;color:var(--txt2);margin-bottom:1.1rem}
-.atext p strong{color:var(--txt);font-weight:500}
-.badges{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:2rem}
-.badge{padding:.38rem .95rem;border:1px solid rgba(74,146,64,.28);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--green-g)}
-/* Photo colonne */
-.photo-col{display:flex;flex-direction:column;gap:1rem}
-.photo-portrait{width:100%;border-radius:2px;border:1px solid var(--border);overflow:hidden;display:block}
-.photo-portrait img{width:100%;display:block;filter:grayscale(20%) contrast(1.05)}
-.interests{border:1px solid var(--border);padding:1.5rem;background:var(--navy-mid)}
-.int-title{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--green-g);margin-bottom:1rem}
-.int-item{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;font-size:.85rem;font-weight:300;color:var(--txt2)}
-.int-icon{color:var(--green-g);flex-shrink:0}
-/* PARCOURS */
-.pbg{background:var(--navy-mid)}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:.5rem}
-.tl{position:relative}
-.tl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border)}
-.tli{padding-left:2.4rem;margin-bottom:2.8rem;position:relative}
-.tli::before{content:'';position:absolute;left:-4px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--green-g);border:2px solid var(--navy-mid);box-shadow:0 0 0 1px var(--green-g)}
-.tdate{font-family:'Barlow Condensed',sans-serif;font-size:.63rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--green-g);margin-bottom:.4rem}
-.ttitle{font-family:'Barlow Condensed',sans-serif;font-size:1.45rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--txt);margin-bottom:.25rem}
-.tschool{font-size:.83rem;font-weight:300;color:var(--txt2);margin-bottom:.55rem}
-.tdesc{font-size:.82rem;font-weight:300;line-height:1.75;color:var(--muted)}
-/* SKILLS */
-.skgrid{margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
-.skcell{padding:1.3rem 1.1rem;background:var(--navy-mid);transition:background .25s;cursor:none}
-.skcell:hover{background:var(--navy-light)}
-.skname{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--txt);margin-bottom:.2rem}
-.sktype{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.skbar{margin-top:.65rem;height:2px;background:rgba(255,255,255,.07);overflow:hidden}
-.skfill{height:100%;background:var(--green-g);width:0;transition:width 1.1s ease}
-/* PROJETS */
-.ghcard{border:1px solid var(--border);padding:2.8rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:3rem;position:relative;overflow:hidden;text-decoration:none;transition:border-color .3s;cursor:none}
-.ghcard:hover{border-color:rgba(74,146,64,.45)}
-.ghcard::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green-g),transparent);opacity:0;transition:opacity .3s}
-.ghcard:hover::after{opacity:1}
-.ghinfo h3{font-family:'Barlow Condensed',sans-serif;font-size:1.9rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:var(--txt);margin-bottom:.45rem}
-.ghinfo p{font-size:.88rem;font-weight:300;color:var(--txt2);line-height:1.65}
-.gha{margin-top:1.4rem;display:flex;align-items:center;gap:.7rem;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green-g)}
-.ghstats{display:flex;gap:2.5rem;flex-shrink:0}
-.stnum{font-family:'Barlow Condensed',sans-serif;font-size:2.6rem;font-weight:900;color:var(--green-g);display:block;line-height:1}
-.stlbl{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.shots{margin-top:1px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
-.sph{background:var(--navy-mid);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:3rem;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);aspect-ratio:16/8;cursor:none;transition:background .3s}
-.sph:hover{background:var(--navy-light)}
-/* CIRCUIT */
-.cbg{background:var(--navy-mid)}
-.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.ctext p{font-size:.98rem;font-weight:300;line-height:1.9;color:var(--txt2);margin-bottom:1.1rem}
-.ctext p strong{color:var(--txt);font-weight:500}
-.flag{margin-top:2rem;padding:1.2rem 1.4rem;border-left:2px solid var(--red);background:rgba(184,50,40,.04);display:flex;gap:1rem;align-items:flex-start}
-.flag p{font-size:.84rem;font-weight:300;line-height:1.6;color:var(--txt2)}
-.flag p strong{color:var(--txt)}
-.cphotos{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-.cph{background:var(--navy);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:2rem 1rem;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:border-color .3s;cursor:none}
-.cph:hover{border-color:rgba(74,146,64,.35)}
-.cph svg{opacity:.2}
-.cph.wide{grid-column:span 2;min-height:180px}
-/* FOOTER */
-footer{background:var(--navy);border-top:1px solid var(--border);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center}
-.ftname{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.ftloc{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--green-g)}
-.ftsch{font-size:.72rem;color:var(--muted);letter-spacing:.05em}
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
-.reveal.on{opacity:1;transform:translateY(0)}
-@media(max-width:900px){
-  nav{padding:1.2rem 1.5rem}nav ul{display:none}
-  .hero{padding:0 1.5rem 4rem}
-  .wrap{padding:4.5rem 1.5rem}
-  .ag,.pgrid,.cgrid{grid-template-columns:1fr;gap:3rem}
-  .hcar{width:95%;right:-5%;opacity:.3}
-  footer{flex-direction:column;gap:.9rem;text-align:center}
-  .ghcard{flex-direction:column}
-  .shots{grid-template-columns:1fr}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simon Clement — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-<div id="cur"></div>
-<div id="ring"></div>
 
-<nav>
-  <div class="logo">Simon <span>Clément</span></div>
-  <ul>
-    <li><a href="#about">Profil</a></li>
-    <li><a href="#parcours">Parcours</a></li>
-    <li><a href="#projets">Projets</a></li>
-    <li><a href="#circuit">Circuit</a></li>
-  </ul>
-</nav>
+  <!-- CURSOR -->
+  <div id="cur"></div>
+  <div id="ring"></div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hbg"></div>
-  <div class="hgrid"></div>
-  <img class="hcar" src="LMGT3_Sans_fond.png" alt="Porsche 911 GT3" onerror="this.style.display='none'">
-  <div class="hrule"></div>
-  <div style="position:relative;z-index:2">
-    <div class="heyebrow">Étudiant en Informatique · Le Mans · France</div>
-    <h1 class="hname"><span class="f">Simon</span><span class="l">Clément</span></h1>
-    <p class="hsub">Développeur en formation — animé par la rigueur du circuit et la précision du code.</p>
-    <div class="hcta">
-      <a href="https://github.com/SimCLEMENT" target="_blank" class="btn-g">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-        Voir les projets
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="logo">SC<span>.</span></a>
+    <ul>
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#parcours">Formation</a></li>
+      <li><a href="#projets">Code</a></li>
+      <li><a href="#circuit">Sur les circuits</a></li>
+      <li><a href="#motorsport">Motorsport</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Me contacter</a>
+  </nav>
+
+  <!-- ═══════════════════════════════
+       HERO
+  ═══════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img src="media/LMGT3.jpg" alt="" class="hero-img" id="heroBg">
+      <div class="hero-overlay"></div>
+      <div class="hero-noise"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        France &nbsp;·&nbsp; Le Mans &nbsp;·&nbsp; Étudiant &nbsp;·&nbsp; BUT Informatique
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-line">SIMON</span>
+        <span class="hero-line hero-line--outline">CLEMENT</span>
+      </h1>
+      <p class="hero-sub">Développeur en formation — animé par la rigueur du circuit et la précision du code.</p>
+      <div class="hero-btns">
+        <a href="https://github.com/SimCLEMENT" target="_blank" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="#about" class="btn-ghost">
+          Découvrir
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Ticker bande verte -->
+    <div class="hero-ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>COMMISSAIRE DE PISTE</span><span class="sep">✦</span>
+        <span>LE MANS 24H</span><span class="sep">✦</span>
+        <span>BUT INFORMATIQUE</span><span class="sep">✦</span>
+        <span>IUT CAEN</span><span class="sep">✦</span>
+        <span>ASA MAINE / BRETAGNE</span><span class="sep">✦</span>
+        <span>DÉVELOPPEUR FULL-STACK</span><span class="sep">✦</span>
+        <span>COMMISSAIRE DE PISTE</span><span class="sep">✦</span>
+        <span>LE MANS 24H</span><span class="sep">✦</span>
+        <span>BUT INFORMATIQUE</span><span class="sep">✦</span>
+        <span>IUT CAEN</span><span class="sep">✦</span>
+        <span>ASA MAINE / BRETAGNE</span><span class="sep">✦</span>
+        <span>DÉVELOPPEUR FULL-STACK</span><span class="sep">✦</span>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       ABOUT
+  ═══════════════════════════════ -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-photo reveal">
+        <img src="media/commissairePiste.jpg" alt="Simon Clement commissaire de piste">
+        <div class="photo-badge">
+          <span class="badge-role">Commissaire</span>
+          <span class="badge-class">Nationale C</span>
+        </div>
+      </div>
+      <div class="about-text reveal" style="transition-delay:.15s">
+        <div class="section-label">À propos</div>
+        <h2 class="section-title">Qui<br>suis-je&nbsp;?</h2>
+        <p>Né et élevé au <strong>Mans</strong>, là où l'asphalte sent l'histoire, j'ai grandi au rythme des 24&nbsp;Heures. Ce qui n'était au départ qu'une passion de spectateur est devenu une <strong>vocation</strong>&nbsp;: aujourd'hui commissaire de piste, je suis au cœur de l'action — garant de la sécurité des pilotes et de l'intégrité de la course.</p>
+        <p>En parallèle, j'ai choisi de canaliser cette même rigueur dans l'<strong>informatique</strong>. Étudiant en BUT à l'IUT de Caen, je construis mes compétences avec la même approche qu'en piste&nbsp;: <strong>précision, méthode et passion</strong>.</p>
+        <div class="tags">
+          <span class="tag">BUT Informatique</span>
+          <span class="tag">Commissaire de piste</span>
+          <span class="tag">Le Mans</span>
+          <span class="tag">Endurance</span>
+          <span class="tag">Tennis</span>
+          <span class="tag">Surf</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       PARCOURS
+  ═══════════════════════════════ -->
+  <section id="parcours">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-label">Formation</div>
+        <h2 class="section-title">Parcours</h2>
+      </div>
+      <div class="parcours-grid">
+
+        <!-- Timeline -->
+        <div class="timeline reveal" style="transition-delay:.1s">
+          <div class="tl-item">
+            <div class="tl-year">2025 — 2028</div>
+            <div class="tl-title">BUT Informatique</div>
+            <div class="tl-place">
+              <img src="media/IUT-CAEN.png" alt="IUT Caen" class="school-logo"> IUT de Caen · Normandie Université
+            </div>
+            <div class="tl-desc">Parcours Réalisation d'applications&nbsp;: conception, développement, validation. Développement logiciel, bases de données, réseaux et gestion de projets.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">Juin 2025</div>
+            <div class="tl-title">Baccalauréat Général</div>
+            <div class="tl-place">Lycée Touchard Washington, Le Mans</div>
+            <div class="tl-desc">Spécialités&nbsp;: Mathématiques, Physique-Chimie et NSI (Numérique et Sciences Informatiques).</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">Depuis 2023</div>
+            <div class="tl-title">Commissaire de piste</div>
+            <div class="tl-place">Nationale C · ASA Maine/Bretagne</div>
+            <div class="tl-desc">Engagement bénévole sur les épreuves d'endurance. Sécurité piste, gestion des incidents, signalisation aux pilotes.</div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="skills-col reveal" style="transition-delay:.2s">
+          <div class="section-label">Compétences</div>
+          <div class="skill-list" id="skillList">
+            <div class="skill-item" data-level="78">
+              <div class="skill-top">
+                <span class="skill-name">HTML / CSS</span>
+                <span class="skill-type">Front-end</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill"></div></div>
+            </div>
+            <div class="skill-item" data-level="65">
+              <div class="skill-top">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-type">Scripting</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill"></div></div>
+            </div>
+            <div class="skill-item" data-level="60">
+              <div class="skill-top">
+                <span class="skill-name">Java</span>
+                <span class="skill-type">POO</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill"></div></div>
+            </div>
+            <div class="skill-item" data-level="50">
+              <div class="skill-top">
+                <span class="skill-name">C / C++</span>
+                <span class="skill-type">Bas niveau</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill"></div></div>
+            </div>
+            <div class="skill-item" data-level="62">
+              <div class="skill-top">
+                <span class="skill-name">SQL</span>
+                <span class="skill-type">Bases de données</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill"></div></div>
+            </div>
+            <div class="skill-item" data-level="55">
+              <div class="skill-top">
+                <span class="skill-name">PHP</span>
+                <span class="skill-type">Back-end</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       PROJETS
+  ═══════════════════════════════ -->
+  <section id="projets">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-label">Code</div>
+        <h2 class="section-title">Projets &amp;<br>Réalisations</h2>
+      </div>
+      <a href="https://github.com/SimCLEMENT" target="_blank" class="gh-card reveal" style="transition-delay:.1s">
+        <div class="gh-left">
+          <h3>GitHub / SimCLEMENT</h3>
+          <p>Retrouvez l'ensemble de mes projets, expérimentations et travaux pratiques. Du développement web à l'algorithmique, en passant par les bases de données et les applications back-end.</p>
+          <div class="gh-link">
+            Accéder au profil
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+        <div class="gh-right">
+          <div class="gh-stat"><span class="gh-num">6</span><span class="gh-lbl">Repos</span></div>
+          <div class="gh-stat"><span class="gh-num">BUT</span><span class="gh-lbl">Niveau</span></div>
+        </div>
       </a>
-      <a href="#about" class="btn-o">Découvrir le profil</a>
-    </div>
-  </div>
-  <div class="scrl"><div class="sline"></div><span class="slbl">Défiler</span></div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" style="background:var(--navy)">
-  <div class="wrap">
-    <div class="ag">
-      <div class="atext reveal">
-        <div class="lbl">À propos</div>
-        <h2 class="stitle">Qui<br>suis-je ?</h2>
-        <p>Né et élevé au <strong>Mans</strong>, là où l'asphalte sent l'histoire, j'ai grandi au rythme des 24 Heures. Ce qui n'était au départ qu'une passion de spectateur est devenu une <strong>vocation</strong> : aujourd'hui commissaire de piste, je suis au cœur de l'action — garant de la sécurité des pilotes et de l'intégrité de la course.</p>
-        <p>En parallèle, j'ai choisi de canaliser cette même rigueur dans l'<strong>informatique</strong>. Étudiant en BUT à l'IUT de Caen, je construis mes compétences avec la même approche qu'en piste : <strong>précision, méthode et passion</strong>.</p>
-        <div class="badges">
-          <span class="badge">BUT Informatique</span>
-          <span class="badge">Commissaire de piste</span>
-          <span class="badge">Le Mans</span>
-          <span class="badge">Endurance</span>
+      <div class="project-shots reveal" style="transition-delay:.2s">
+        <div class="shot-ph">
+          <div class="ph-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <span>Projet 1 — à venir</span>
+          </div>
         </div>
-      </div>
-
-      <div class="photo-col reveal" style="transition-delay:.2s">
-        <div class="photo-portrait">
-          <img src="data:image/jpeg;base64,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" alt="Simon Clément">
-        </div>
-        <div class="interests">
-          <div class="int-title">Centres d'intérêt</div>
-          <div class="int-item">
-            <svg class="int-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Programmation informatique
-          </div>
-          <div class="int-item">
-            <svg class="int-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            Sport automobile — Course d'endurance
-          </div>
-          <div class="int-item">
-            <svg class="int-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>
-            Tennis (licencié depuis 10 ans)
-          </div>
-          <div class="int-item">
-            <svg class="int-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/></svg>
-            Surf
+        <div class="shot-ph">
+          <div class="ph-inner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Projet 2 — à venir</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PARCOURS -->
-<section class="pbg" id="parcours">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="lbl">Formation</div>
-      <h2 class="stitle">Parcours<br>scolaire</h2>
-    </div>
-    <div class="pgrid">
-      <div class="tl reveal" style="transition-delay:.1s">
-        <div class="tli">
-          <div class="tdate">2025 — 2028</div>
-          <div class="ttitle">BUT Informatique</div>
-          <div class="tschool">IUT de Caen · Normandie Université</div>
-          <div class="tdesc">Parcours Réalisation d'applications : conception, développement, validation. Formation couvrant le développement logiciel, les bases de données, les réseaux et la gestion de projets.</div>
-        </div>
-        <div class="tli">
-          <div class="tdate">Juin 2025</div>
-          <div class="ttitle">Baccalauréat Général</div>
-          <div class="tschool">Lycée Touchard Washington, Le Mans</div>
-          <div class="tdesc">Spécialités : Mathématiques, Physique-Chimie et NSI (Numérique et Sciences Informatiques).</div>
-        </div>
-        <div class="tli" style="margin-bottom:0">
-          <div class="tdate">Depuis 2023</div>
-          <div class="ttitle">Commissaire de piste</div>
-          <div class="tschool">Nationale C · ASA Maine/Bretagne</div>
-          <div class="tdesc">Engagement bénévole sur les épreuves d'endurance. Sécurité piste, gestion des incidents, signalisation aux pilotes.</div>
-        </div>
-      </div>
-
-      <div class="reveal" style="transition-delay:.2s">
-        <div class="lbl">Compétences</div>
-        <div class="skgrid" id="skGrid">
-          <div class="skcell" data-level="78"><div class="skname">HTML / CSS</div><div class="sktype">Front-end</div><div class="skbar"><div class="skfill"></div></div></div>
-          <div class="skcell" data-level="65"><div class="skname">JavaScript</div><div class="sktype">Scripting</div><div class="skbar"><div class="skfill"></div></div></div>
-          <div class="skcell" data-level="60"><div class="skname">Java</div><div class="sktype">POO</div><div class="skbar"><div class="skfill"></div></div></div>
-          <div class="skcell" data-level="50"><div class="skname">C / C++</div><div class="sktype">Bas niveau</div><div class="skbar"><div class="skfill"></div></div></div>
-          <div class="skcell" data-level="62"><div class="skname">SQL</div><div class="sktype">Bases de données</div><div class="skbar"><div class="skfill"></div></div></div>
-          <div class="skcell" data-level="55"><div class="skname">PHP</div><div class="sktype">Back-end</div><div class="skbar"><div class="skfill"></div></div></div>
-        </div>
+  <!-- ═══════════════════════════════
+       CIRCUIT
+  ═══════════════════════════════ -->
+  <section id="circuit">
+    <div class="circuit-inner reveal">
+      <div class="section-label">Sur les circuits</div>
+      <h2 class="section-title">Commissaire<br>de piste</h2>
+      <p>Franchir le cap du bénévolat pour devenir <strong>commissaire de piste en Nationale C</strong>, c'est avoir choisi de ne plus seulement regarder la course — mais d'en faire partie. Chaque drapeau agité, chaque intervention compte.</p>
+      <div class="flag-block">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        <p><strong>ASA Maine/Bretagne — Nationale C</strong> · Commissaire de piste bénévole depuis 2023. Sécurité des pilotes, gestion des incidents, signalisation.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROJETS -->
-<section id="projets" style="background:var(--navy)">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="lbl">Code</div>
-      <h2 class="stitle">Projets &amp;<br>réalisations</h2>
+  <!-- ═══════════════════════════════
+       MOTORSPORT GALLERY
+  ═══════════════════════════════ -->
+  <section id="motorsport">
+    <div class="section-header reveal">
+      <div class="section-label">Passion</div>
+      <h2 class="section-title">Motorsport</h2>
     </div>
-    <a href="https://github.com/SimCLEMENT" target="_blank" class="ghcard reveal" style="transition-delay:.1s;display:flex">
-      <div class="ghinfo">
-        <h3>GitHub / SimCLEMENT</h3>
-        <p>Retrouvez l'ensemble de mes projets, expérimentations et travaux pratiques. Du développement web à l'algorithmique, en passant par les bases de données et les applications back-end.</p>
-        <div class="gha">
-          <span>Accéder au profil</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-item">
+        <img src="media/LMGT3.jpg" alt="LM GT3">
+        <div class="gallery-caption">
+          <span class="gc-name">LM GT3</span>
+          <span class="gc-cat">Endurance</span>
         </div>
       </div>
-      <div class="ghstats">
-        <div style="text-align:center"><span class="stnum">6</span><span class="stlbl">Repos</span></div>
-        <div style="text-align:center"><span class="stnum">BUT</span><span class="stlbl">Niveau</span></div>
-      </div>
-    </a>
-    <div class="shots reveal" style="transition-delay:.2s">
-      <div class="sph">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <span>Capture projet 1</span>
-      </div>
-      <div class="sph">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        <span>Capture projet 2</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CIRCUIT -->
-<section class="cbg" id="circuit">
-  <div class="wrap">
-    <div class="cgrid">
-      <div class="ctext reveal">
-        <div class="lbl">Passion</div>
-        <h2 class="stitle">Sur le<br>circuit</h2>
-        <p>Le <strong>Mans</strong>, ce n'est pas juste une ville sur ma carte d'identité — c'est un état d'esprit. Depuis l'enfance, les <strong>24 Heures</strong> ont rythmé mes étés et forgé mon rapport à l'endurance, à l'effort collectif et à la précision sous pression.</p>
-        <p>Franchir le cap du bénévolat pour devenir <strong>commissaire de piste en Nationale C</strong>, c'est avoir choisi de ne plus seulement regarder la course — mais d'en faire partie. Chaque drapeau agité, chaque intervention comptent.</p>
-        <div class="flag">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b83228" stroke-width="2" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-          <p><strong>ASA Maine/Bretagne — Nationale C</strong> · Commissaire de piste bénévole. Sécurité des pilotes, gestion des incidents, signalisation.</p>
+      <div class="gallery-item">
+        <img src="media/porsche.jpg" alt="Porsche">
+        <div class="gallery-caption">
+          <span class="gc-name">Porsche</span>
+          <span class="gc-cat">GT</span>
         </div>
       </div>
-
-      <div class="cphotos reveal" style="transition-delay:.2s">
-        <div class="cph wide">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="6" width="22" height="14" rx="2"/><path d="M1 10h22"/><circle cx="5" cy="14" r="1.5"/><path d="M9 14h6"/></svg>
-          <span>Photo circuit / ambiance</span>
+      <div class="gallery-item">
+        <img src="media/ferrari.jpg" alt="Ferrari">
+        <div class="gallery-caption">
+          <span class="gc-name">Ferrari</span>
+          <span class="gc-cat">Endurance</span>
         </div>
-        <div class="cph">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-          <span>Action drapeau</span>
+      </div>
+      <div class="gallery-item">
+        <img src="media/alpine.jpg" alt="Alpine">
+        <div class="gallery-caption">
+          <span class="gc-name">Alpine</span>
+          <span class="gc-cat">Hypercar</span>
         </div>
-        <div class="cph">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <span>Paddock / équipe</span>
+      </div>
+      <div class="gallery-item">
+        <img src="media/valkyrie.jpg" alt="Aston Martin Valkyrie">
+        <div class="gallery-caption">
+          <span class="gc-name">Valkyrie</span>
+          <span class="gc-cat">Hypercar</span>
         </div>
       </div>
     </div>
-  </div>
-</section>
+    <p class="gallery-hint" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Glisser pour explorer
+    </p>
+  </section>
 
-<footer>
-  <div class="ftname">Simon Clément &copy; 2026</div>
-  <div class="ftloc">Le Mans · France</div>
-  <div class="ftsch">BUT Informatique · IUT de Caen</div>
-</footer>
+  <!-- ═══════════════════════════════
+       CONTACT
+  ═══════════════════════════════ -->
+  <section id="contact">
+    <div class="contact-inner reveal">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title contact-title">Travaillons<br>ensemble.</h2>
+      <p class="contact-sub">Intéressé par un profil alliant rigueur du terrain et compétences techniques&nbsp;? N'hésitez pas à me contacter.</p>
+      <div class="contact-links">
+        <a href="mailto:simon.clement@etudiant.unicaen.fr" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+        <a href="https://github.com/SimCLEMENT" target="_blank" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/simon-clement" target="_blank" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="cv/simon-clement-cv.pdf" download class="contact-link contact-link--accent">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Télécharger mon CV
+        </a>
+      </div>
+    </div>
+  </section>
 
-<script>
-const cur=document.getElementById('cur'),ring=document.getElementById('ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform='translate('+(mx-3.5)+'px,'+(my-3.5)+'px)'});
-(function lerp(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.transform='translate('+(rx-15)+'px,'+(ry-15)+'px)';requestAnimationFrame(lerp)})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.width=ring.style.height='46px';ring.style.borderColor='rgba(74,146,64,.75)'});
-  el.addEventListener('mouseleave',()=>{ring.style.width=ring.style.height='30px';ring.style.borderColor='rgba(74,146,64,.35)'});
-});
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting)return;
-    e.target.classList.add('on');
-    e.target.querySelectorAll('[data-level]').forEach(cell=>{
-      const f=cell.querySelector('.skfill');
-      if(f)f.style.width=cell.dataset.level+'%';
-    });
-  });
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
+  <!-- ═══════════════════════════════
+       FOOTER
+  ═══════════════════════════════ -->
+  <footer>
+    <div class="ft-left">
+      <span class="ft-name">Simon Clement</span>
+      <span class="ft-copy">&copy; 2026</span>
+    </div>
+    <div class="ft-center">Le Mans &nbsp;·&nbsp; France</div>
+    <div class="ft-right">BUT Informatique &nbsp;·&nbsp; IUT de Caen</div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
