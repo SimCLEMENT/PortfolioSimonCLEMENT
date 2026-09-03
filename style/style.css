@@ -68,7 +68,7 @@ body {
 /* HERO */
 .hero {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   padding: 100px 40px;
 }
