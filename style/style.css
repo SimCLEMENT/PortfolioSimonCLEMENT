@@ -38,6 +38,8 @@ body {
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: var(--blanc);
+  text-decoration: none;
 }
 
 .liens-nav {
