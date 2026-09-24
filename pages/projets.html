@@ -28,7 +28,76 @@
 </header>
 
 <body>
+    <main class="projets-page">
 
+        <!-- Filtres par langage -->
+        <div class="filtres" id="filtres">
+            <button class="filtre-btn active" data-lang="tous">Tous</button>
+            <button class="filtre-btn" data-lang="java">Java</button>
+            <button class="filtre-btn" data-lang="javascript">JavaScript</button>
+            <button class="filtre-btn" data-lang="html">HTML</button>
+            <button class="filtre-btn" data-lang="php">PHP</button>
+            <button class="filtre-btn" data-lang="c">C</button>
+            <button class="filtre-btn" data-lang="css">CSS</button>
+        </div>
+
+        <!-- Liste des projets -->
+        <div class="liste-projets" id="liste-projets">
+
+            <a href="projet-detail.html?id=portfolio" class="projet-item" data-lang="css">
+                <div class="projet-infos">
+                    <p class="projet-titre">Portfolio Simon Clement</p>
+                    <p class="projet-desc">Site portfolio personnel mêlant identité développeur et passion pour le sport
+                        automobile.</p>
+                    <div class="projet-lang">
+                        <span class="lang-dot" style="background:#563d7c;"></span>CSS
+                    </div>
+                </div>
+                <span class="projet-fleche" aria-hidden="true">&#8594;</span>
+            </a>
+
+            <a href="projet-detail.html?id=shifumi" class="projet-item" data-lang="javascript">
+                <div class="projet-infos">
+                    <p class="projet-titre">Ultimate Shifumi</p>
+                    <p class="projet-desc">Jeu pierre-feuille-ciseaux enrichi de nouvelles variantes, jouable dans le
+                        navigateur.</p>
+                    <div class="projet-lang">
+                        <span class="lang-dot" style="background:#f1e05a;"></span>JavaScript
+                    </div>
+                </div>
+                <span class="projet-fleche" aria-hidden="true">&#8594;</span>
+            </a>
+
+            <a href="projet-detail.html?id=jeuenc" class="projet-item" data-lang="c">
+                <div class="projet-infos">
+                    <p class="projet-titre">Jeu En C</p>
+                    <p class="projet-desc">Petit jeu développé en C dans le cadre d'un TP, logique de plateau et gestion
+                        des tours.</p>
+                    <div class="projet-lang">
+                        <span class="lang-dot" style="background:#555555;"></span>C
+                    </div>
+                </div>
+                <span class="projet-fleche" aria-hidden="true">&#8594;</span>
+            </a>
+
+            <a href="projet-detail.html?id=gribouille" class="projet-item" data-lang="java">
+                <div class="projet-infos">
+                    <p class="projet-titre">Gribouille</p>
+                    <p class="projet-desc">Application de dessin en Java, architecture MVC avec interface FXML.</p>
+                    <div class="projet-lang">
+                        <span class="lang-dot" style="background:#b07219;"></span>Java
+                    </div>
+                </div>
+                <span class="projet-fleche" aria-hidden="true">&#8594;</span>
+            </a>
+
+        </div>
+
+        <p class="aucun-resultat" id="aucun-resultat" hidden>Aucun projet pour ce langage.</p>
+
+    </main>
+
+    <script src="../js/projets.js"></script>
 </body>
 
 </html>

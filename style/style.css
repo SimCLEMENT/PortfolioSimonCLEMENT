@@ -3,6 +3,9 @@
   --blanc: #ffffff;
   --noir: #111111;
   --fond: #F5F0E6;
+  --texte: #172A3A;
+  --texte-secondaire: #5c6873;
+  --bordure: #ddd6c7;
 }
 
 * {
@@ -17,7 +20,10 @@ body {
   background: var(--fond);
 }
 
-/* BARRE DE NAVIGATION */
+/* ===================== */
+/* BARRE DE NAVIGATION    */
+/* ===================== */
+
 .barre-nav {
   background: var(--vert);
   color: var(--blanc);
@@ -68,7 +74,10 @@ body {
   display: flex;
 }
 
-/* SECTION HÉROS */
+/* ===================== */
+/* SECTION HÉROS          */
+/* ===================== */
+
 .heros {
   display: flex;
   justify-content: center;
@@ -99,18 +108,21 @@ body {
 .heros-nom {
   font-size: 64px;
   font-weight: 700;
-  color: #172A3A;
+  color: var(--texte);
   white-space: nowrap;
 }
 
 .heros-statut {
   font-size: 28px;
-  color: #172A3A;
+  color: var(--texte);
   text-align: center;
   margin-top: 12px;
 }
 
-/* SECTION PRÉSENTATION */
+/* ===================== */
+/* SECTION PRÉSENTATION   */
+/* ===================== */
+
 .presentation {
   display: flex;
   justify-content: center;
@@ -126,18 +138,141 @@ body {
 
 .presentation-texte {
   font-size: 28px;
-  color: #172A3A;
+  color: var(--texte);
   max-width: 600px;
 }
 
 .presentation-titre {
   font-size: 64px;
   font-weight: 700;
-  color: #172A3A;
+  color: var(--texte);
   white-space: nowrap;
 }
 
-/* RESPONSIVE */
+/* ===================== */
+/* PAGE PROJETS           */
+/* ===================== */
+
+.projets-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  color: var(--noir);
+}
+
+.projets-page h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--texte);
+}
+
+/* -- Filtres -- */
+
+.filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2rem;
+}
+
+.filtre-btn {
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--bordure);
+  background: transparent;
+  color: var(--texte-secondaire);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.filtre-btn:hover {
+  border-color: var(--vert);
+}
+
+.filtre-btn.active {
+  background: var(--vert);
+  border-color: var(--vert);
+  color: var(--blanc);
+}
+
+/* -- Liste des projets -- */
+
+.liste-projets {
+  border-top: 1px solid var(--bordure);
+}
+
+.projet-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 1.1rem 0.25rem;
+  border-bottom: 1px solid var(--bordure);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+
+.projet-item:hover {
+  background: rgba(16, 88, 60, 0.08);
+}
+
+.projet-infos {
+  min-width: 0;
+}
+
+.projet-titre {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--texte);
+}
+
+.projet-desc {
+  font-size: 0.9rem;
+  color: var(--texte-secondaire);
+  margin: 4px 0 8px;
+}
+
+.projet-lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--texte-secondaire);
+}
+
+.lang-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.projet-fleche {
+  font-size: 1.3rem;
+  color: var(--texte-secondaire);
+  flex-shrink: 0;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.projet-item:hover .projet-fleche {
+  color: var(--vert);
+  transform: translateX(3px);
+}
+
+.aucun-resultat {
+  text-align: center;
+  color: var(--texte-secondaire);
+  padding: 2rem 0;
+}
+
+/* ===================== */
+/* RESPONSIVE             */
+/* ===================== */
+
 @media (max-width: 600px) {
   .barre-nav {
     padding: 14px 20px;
