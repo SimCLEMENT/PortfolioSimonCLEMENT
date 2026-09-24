@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
       let visibles = 0;
 
       projets.forEach(projet => {
-        const correspond = langue === 'tous' || projet.dataset.lang === langue;
+        const langsProjet = projet.dataset.lang.split(' ');
+        const correspond = langue === 'tous' || langsProjet.includes(langue);
         projet.style.display = correspond ? 'flex' : 'none';
         if (correspond) visibles++;
       });
