@@ -13,6 +13,6 @@ Ce site a été conçu pour présenter mon profil, mon parcours académique et m
 - HTML5 / CSS3 (vanilla)
 - JavaScript (vanilla)
 
-## ✍️ Auteur(s)
+## ✍️ Auteur
 
 - Simon CLEMENT
